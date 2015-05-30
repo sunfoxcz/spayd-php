@@ -1,8 +1,8 @@
 {
-	"name": "shoptet/spayd-php",
-	"description": "Shoptet ecommerce system",
+	"name": "sunfoxcz/spayd-php",
+	"description": "SPAYD messages for QR code payments generation.",
 	"keywords": ["spayd", "spayd-php", "qr-platba", "qrplatba"],
-	"homepage": "https://github.com/shoptet/spayd-php",
+	"homepage": "https://github.com/sunfoxcz/spayd-php",
 	"type": "library",
 	"license": "MIT",
 
