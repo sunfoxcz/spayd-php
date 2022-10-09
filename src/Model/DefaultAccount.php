@@ -2,16 +2,19 @@
 
 namespace Sunfox\Spayd\Model;
 
-abstract class DefaultAccount implements Account {
-	
+abstract class DefaultAccount implements Account
+{
 	protected $accountString;
+
 	protected $locale;
-	
+
 	protected $prefix;
+
 	protected $accountNumber;
+
 	protected $bankCode;
-	
-	protected $localeAlphabet = array(
+
+	protected $localeAlphabet = [
 		10 => 'A',
 		11 => 'B',
 		12 => 'C',
@@ -38,45 +41,51 @@ abstract class DefaultAccount implements Account {
 		33 => 'X',
 		34 => 'Y',
 		35 => 'Z',
-	);
-	
-	
+	];
+
 	/**
 	 * @param $accountString (string)
 	 * @param $locale (string)
 	 */
-	public function __construct($accountString, $locale = NULL) {
+	public function __construct($accountString, $locale = NULL)
+	{
 		$this->accountString = $accountString;
-		if (empty($locale) === TRUE) {
+		if (empty($locale) === true) {
 			$this->locale = static::DEFAULT_LOCALE;
 		} else {
 			$this->locale = $locale;
 		}
-		
+
 		$this->buildAccountParts();
 	}
 	
-	public function getAccountString() {
+	public function getAccountString()
+	{
 		return $this->accountString;
 	}
 	
-	public function getBankCode() {
+	public function getBankCode()
+	{
 		return $this->bankCode;
 	}
 
-	public function getAccountNumber() {
+	public function getAccountNumber()
+	{
 		return $this->accountNumber;
 	}
 
-	public function getPrefix() {
+	public function getPrefix()
+	{
 		return $this->prefix;
 	}
 
-	public function isValid() {
+	public function isValid()
+	{
 		return (bool) preg_match($this->accountPattern, $this->accountString);
 	}
 	
-	public function getLocale() {
+	public function getLocale()
+	{
 		return $this->locale;
 	}
 	
@@ -84,7 +93,8 @@ abstract class DefaultAccount implements Account {
 	 * Returning numeric code of localization of account
 	 * @return string $numericLanguageCode
 	 */
-	public function getNumericLanguageCode() {
+	public function getNumericLanguageCode()
+	{
 		$numericLanguageCode = '';
 
 		// step over each char from language code
@@ -95,7 +105,7 @@ abstract class DefaultAccount implements Account {
 
 		return $numericLanguageCode . '00';
 	}
-	
+
 	// method to build parts of the account
 	abstract protected function buildAccountParts();
 }

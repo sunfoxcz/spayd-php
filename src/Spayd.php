@@ -2,7 +2,7 @@
 
 namespace Sunfox\Spayd;
 
-use Sunfox\Spayd\Exceptions;
+use Sunfox\Spayd\Exceptions\InvalidParameterException;
 
 class Spayd
 {
@@ -12,14 +12,14 @@ class Spayd
 	// key, value delimiter
 	const KV_DELIMITER = ':';
 
-	public $appendCRC32 = TRUE;
+	public $appendCRC32 = true;
 
 	// default Spayd string version
 	protected $version = '1.0';
 
-	private $content = array();
+	private $content = [];
 
-	private $keysDefinition = array(
+	private $keysDefinition = [
 		// Account in IBAN format plus optional SWIFT
 		'ACC' => '[A-Z]{2}\d{2,32}(\+[A-Z0-9]{4}[A-Z]{2}[A-Z0-9]{2,5})?',
 
@@ -64,10 +64,15 @@ class Spayd
 		'X-KS' => '\d{1,10}',
 		'X-ID' => '[0-9A-Z $%+-./:]{1,20}',
 		'X-URL' => '[0-9A-Z $%+-./:]{1,140}',
-	);
+	];
 
 	public function __construct()
 	{
+	}
+
+	public function getVersion()
+	{
+		return $this->version;
 	}
 
 	/**
@@ -77,18 +82,13 @@ class Spayd
 	public function setVersion($version)
 	{
 		if (!preg_match('~^\d\.\d$~', $version)) {
-			throw new Exceptions\InvalidParameterException(
+			throw new InvalidParameterException(
 				"Version $version is not valid."
 			);
 		}
 
 		$this->version = $version;
 		return $this;
-	}
-
-	public function getVersion()
-	{
-		return $this->version;
 	}
 
 	/**
@@ -100,13 +100,13 @@ class Spayd
 	{
 		$key = $this->normalizeKey($key);
 		if (strpos($key, 'X-') !== 0 && !isset($this->keysDefinition[$key])) {
-			throw new Exceptions\InvalidParameterException("Key $key is not defined in specification.");
+			throw new InvalidParameterException("Key $key is not defined in specification.");
 		}
 
 		if (isset($this->keysDefinition[$key])
 			&& !preg_match('~^' . $this->keysDefinition[$key] . '$~', $value)
 		) {
-			throw new Exceptions\InvalidParameterException(
+			throw new InvalidParameterException(
 				"Key $key with value $value doesn't match defined format: "
 				. $this->keysDefinition[$key]
 			);
@@ -151,18 +151,13 @@ class Spayd
 
 	private function implodeContent()
 	{
-		$this->sortContent();
+		ksort($this->content);
 		$output = '';
 		foreach ($this->content as $key => $value) {
 			$output .= $key . self::KV_DELIMITER . $value . self::DELIMITER;
 		}
 
 		return rtrim($output, self::DELIMITER);
-	}
-
-	private function sortContent()
-	{
-		ksort($this->content);
 	}
 
 	public function __toString()

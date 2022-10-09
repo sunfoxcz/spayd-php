@@ -4,13 +4,14 @@ namespace Sunfox\Spayd\Utilities;
 
 use Sunfox\Spayd\Model\DefaultAccount;
 
-class IbanUtilities {
-	
+class IbanUtilities
+{
 	/**
 	 * @param DefaultAccount $account
-	 * @return FALSE|string
+	 * @return false|string
 	 */
-	public static function computeIbanFromBankAccount(DefaultAccount $account) {
+	public static function computeIbanFromBankAccount(DefaultAccount $account)
+	{
 		if ($account->isValid()) {
 			$prefix = str_pad($account->getPrefix(), 6, '0', STR_PAD_LEFT);
 			$accountNumber = str_pad($account->getAccountNumber(), 10, '0', STR_PAD_LEFT);
@@ -21,8 +22,8 @@ class IbanUtilities {
 
 			// build the IBAN number
 			return $account->getLocale() . $checksum . $bankCode . $prefix . $accountNumber;
-		} else {
-			return FALSE;
 		}
+
+		return false;
 	}
 }
