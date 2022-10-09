@@ -16,11 +16,17 @@
 		"ext-bcmath": "*"
 	},
 	"require-dev": {
+		"nette/tester": "^2.4",
 		"phpstan/phpstan": "^1.8"
 	},
 	"autoload": {
 		"psr-4": {
 			"Sunfox\\Spayd\\": "src/"
+		}
+	},
+	"autoload-dev": {
+		"psr-4": {
+			"SunfoxTests\\Spayd\\": "tests/"
 		}
 	},
 	"extra": {
@@ -29,6 +35,7 @@
 		}
 	},
 	"scripts": {
-		"phpstan": "vendor/bin/phpstan analyse --no-progress --ansi -c phpstan.neon -l max src"
+		"phpstan": "vendor/bin/phpstan analyse --no-progress --ansi -c phpstan.neon -l max src",
+		"tests": "vendor/bin/tester -s -p php -C tests/Cases"
 	}
 }

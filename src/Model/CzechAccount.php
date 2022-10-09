@@ -14,7 +14,7 @@ class CzechAccount extends DefaultAccount
 	{
 		preg_match($this->accountPattern, $this->accountString, $accountParts);
 		if (empty($accountParts['prefix']) === false) {
-			$this->prefix = $accountParts['prefix'] ?: '';
+			$this->prefix = $accountParts['prefix'];
 		}
 
 		if (empty($accountParts['accountNumber']) === false) {
