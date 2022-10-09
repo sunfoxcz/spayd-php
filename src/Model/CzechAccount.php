@@ -2,17 +2,28 @@
 
 namespace Sunfox\Spayd\Model;
 
-class CzechAccount extends DefaultAccount
+final class CzechAccount extends DefaultAccount
 {
-	const DEFAULT_LOCALE = 'CZ';
-	const PREFIX_DELIMITER = '-';
-	const BANK_CODE_DELIMITER = '/';
+	protected string $accountPattern = '~^
+		(?:
+			(?P<prefix>\d{0,6})
+			(?:\-{1}) # prefix delimiter
+		){0,1}
+		(?P<accountNumber>\d{2,10})
+		(?:\/{1}) # bank code delimiter
+		(?P<bankCode>\d{3,4})
+		$~Dix';
 
-	protected string $accountPattern = '~^(?P<prefixPart>(?P<prefix>\d{0,6})(?P<prefixDelimiter>\-{1})){0,1}(?P<accountPart>(?P<accountNumber>\d{2,10})(?P<bankCodeDelimiter>\/{1})(?P<bankCode>\d{3,4}))$~';
-
-	protected function buildAccountParts(): void
+	public function __construct(string $accountString)
 	{
-		preg_match($this->accountPattern, $this->accountString, $accountParts);
+		parent::__construct($accountString, 'CZ');
+		$this->buildAccountParts($accountString);
+	}
+
+	protected function buildAccountParts(string $accountString): void
+	{
+		$this->isValid = (bool) preg_match($this->accountPattern, $accountString, $accountParts);
+
 		if (empty($accountParts['prefix']) === false) {
 			$this->prefix = $accountParts['prefix'];
 		}
