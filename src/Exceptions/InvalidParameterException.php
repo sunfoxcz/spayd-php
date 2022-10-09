@@ -2,6 +2,6 @@
 
 namespace Sunfox\Spayd\Exceptions;
 
-class InvalidParameterException extends \Exception
+final class InvalidParameterException extends \Exception
 {
 }
