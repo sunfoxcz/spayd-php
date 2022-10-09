@@ -4,8 +4,6 @@ namespace Sunfox\Spayd\Model;
 
 interface Account
 {
-	public function __construct(string $accountString);
-
 	public function isValid(): bool;
 
 	public function getPrefix(): string;
