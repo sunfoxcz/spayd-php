@@ -4,13 +4,13 @@ namespace Sunfox\Spayd\Model;
 
 interface Account
 {
-	public function __construct($accountString);
+	public function __construct(string $accountString);
 
-	public function isValid();
+	public function isValid(): bool;
 
-	public function getPrefix();
+	public function getPrefix(): string;
 
-	public function getAccountNumber();
+	public function getAccountNumber(): string;
 
-	public function getBankCode();
+	public function getBankCode(): string;
 }

@@ -4,17 +4,20 @@ namespace Sunfox\Spayd\Model;
 
 abstract class DefaultAccount implements Account
 {
-	protected $accountString;
+	protected string $accountString;
 
-	protected $locale;
+	protected string $locale;
 
-	protected $prefix;
+	protected string $prefix = '';
 
-	protected $accountNumber;
+	protected string $accountNumber;
 
-	protected $bankCode;
+	protected string $bankCode;
 
-	protected $localeAlphabet = [
+	/**
+	 * @var array<int, string>
+	 */
+	protected array $localeAlphabet = [
 		10 => 'A',
 		11 => 'B',
 		12 => 'C',
@@ -43,11 +46,7 @@ abstract class DefaultAccount implements Account
 		35 => 'Z',
 	];
 
-	/**
-	 * @param $accountString (string)
-	 * @param $locale (string)
-	 */
-	public function __construct($accountString, $locale = NULL)
+	public function __construct(string $accountString, string $locale = NULL)
 	{
 		$this->accountString = $accountString;
 		if (empty($locale) === true) {
@@ -58,42 +57,41 @@ abstract class DefaultAccount implements Account
 
 		$this->buildAccountParts();
 	}
-	
-	public function getAccountString()
+
+	public function getAccountString(): string
 	{
 		return $this->accountString;
 	}
 	
-	public function getBankCode()
+	public function getBankCode(): string
 	{
 		return $this->bankCode;
 	}
 
-	public function getAccountNumber()
+	public function getAccountNumber(): string
 	{
 		return $this->accountNumber;
 	}
 
-	public function getPrefix()
+	public function getPrefix(): string
 	{
 		return $this->prefix;
 	}
 
-	public function isValid()
+	public function isValid(): bool
 	{
 		return (bool) preg_match($this->accountPattern, $this->accountString);
 	}
-	
-	public function getLocale()
+
+	public function getLocale(): string
 	{
 		return $this->locale;
 	}
-	
+
 	/**
 	 * Returning numeric code of localization of account
-	 * @return string $numericLanguageCode
 	 */
-	public function getNumericLanguageCode()
+	public function getNumericLanguageCode(): string
 	{
 		$numericLanguageCode = '';
 
@@ -107,5 +105,5 @@ abstract class DefaultAccount implements Account
 	}
 
 	// method to build parts of the account
-	abstract protected function buildAccountParts();
+	abstract protected function buildAccountParts(): void;
 }

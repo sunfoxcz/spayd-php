@@ -12,14 +12,20 @@ class Spayd
 	// key, value delimiter
 	const KV_DELIMITER = ':';
 
-	public $appendCRC32 = true;
+	public bool $appendCRC32 = true;
 
 	// default Spayd string version
-	protected $version = '1.0';
+	protected string $version = '1.0';
 
-	private $content = [];
+	/**
+	 * @var array<string, string>
+	 */
+	private array $content = [];
 
-	private $keysDefinition = [
+	/**
+	 * @var array<string, string>
+	 */
+	private array $keysDefinition = [
 		// Account in IBAN format plus optional SWIFT
 		'ACC' => '[A-Z]{2}\d{2,32}(\+[A-Z0-9]{4}[A-Z]{2}[A-Z0-9]{2,5})?',
 
@@ -70,16 +76,12 @@ class Spayd
 	{
 	}
 
-	public function getVersion()
+	public function getVersion(): string
 	{
 		return $this->version;
 	}
 
-	/**
-	 * @param string $version Version of spayd
-	 * @return Spayd
-	 */
-	public function setVersion($version)
+	public function setVersion(string $version): self
 	{
 		if (!preg_match('~^\d\.\d$~', $version)) {
 			throw new InvalidParameterException(
@@ -91,12 +93,7 @@ class Spayd
 		return $this;
 	}
 
-	/**
-	 * @param string $key
-	 * @param string $value
-	 * @return Spayd
-	 */
-	public function add($key, $value)
+	public function add(string $key, string $value): self
 	{
 		$key = $this->normalizeKey($key);
 		if (strpos($key, 'X-') !== 0 && !isset($this->keysDefinition[$key])) {
@@ -116,25 +113,18 @@ class Spayd
 		return $this;
 	}
 
-	/**
-	 * @param string $key
-	 * @return Spayd
-	 */
-	public function delete($key)
+	public function delete(string $key): self
 	{
 		unset($this->content[$this->normalizeKey($key)]);
 		return $this;
 	}
 
-	/**
-	 * @param string $key
-	 */
-	private function normalizeKey($key)
+	private function normalizeKey(string $key): string
 	{
 		return strtoupper($key);
 	}
 
-	public function generate()
+	public function generate(): string
 	{
 		$spayd = 'SPD'
 			. self::DELIMITER
@@ -149,7 +139,7 @@ class Spayd
 		return $spayd;
 	}
 
-	private function implodeContent()
+	private function implodeContent(): string
 	{
 		ksort($this->content);
 		$output = '';
@@ -160,7 +150,7 @@ class Spayd
 		return rtrim($output, self::DELIMITER);
 	}
 
-	public function __toString()
+	public function __toString(): string
 	{
 		return $this->generate();
 	}
