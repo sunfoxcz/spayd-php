@@ -62,7 +62,7 @@ abstract class DefaultAccount implements Account
 	{
 		return $this->accountString;
 	}
-	
+
 	public function getBankCode(): string
 	{
 		return $this->bankCode;

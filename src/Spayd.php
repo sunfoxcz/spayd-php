@@ -100,8 +100,9 @@ class Spayd
 			throw new InvalidParameterException("Key $key is not defined in specification.");
 		}
 
-		if (isset($this->keysDefinition[$key])
-			&& !preg_match('~^' . $this->keysDefinition[$key] . '$~', $value)
+		if (
+			isset($this->keysDefinition[$key]) &&
+			!preg_match('~^' . $this->keysDefinition[$key] . '$~', $value)
 		) {
 			throw new InvalidParameterException(
 				"Key $key with value $value doesn't match defined format: "
@@ -119,11 +120,6 @@ class Spayd
 		return $this;
 	}
 
-	private function normalizeKey(string $key): string
-	{
-		return strtoupper($key);
-	}
-
 	public function generate(): string
 	{
 		$spayd = 'SPD'
@@ -139,6 +135,16 @@ class Spayd
 		return $spayd;
 	}
 
+	public function __toString(): string
+	{
+		return $this->generate();
+	}
+
+	private function normalizeKey(string $key): string
+	{
+		return strtoupper($key);
+	}
+
 	private function implodeContent(): string
 	{
 		ksort($this->content);
@@ -148,10 +154,5 @@ class Spayd
 		}
 
 		return rtrim($output, self::DELIMITER);
-	}
-
-	public function __toString(): string
-	{
-		return $this->generate();
 	}
 }
