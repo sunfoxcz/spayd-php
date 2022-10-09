@@ -1,6 +1,6 @@
 <?php
 
-namespace Shoptet\Spayd\Exceptions;
+namespace Sunfox\Spayd\Exceptions;
 
 class InvalidParameterException extends \Exception
 {

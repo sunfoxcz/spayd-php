@@ -1,5 +1,6 @@
 <?php
-namespace Shoptet\Spayd\Model;
+
+namespace Sunfox\Spayd\Model;
 
 interface Account {
 	public function __construct($accountString);

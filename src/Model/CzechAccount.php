@@ -1,6 +1,6 @@
 <?php
-namespace Shoptet\Spayd\Model;
-use Shoptet\Spayd\Model;
+
+namespace Sunfox\Spayd\Model;
 
 class CzechAccount extends DefaultAccount {
 

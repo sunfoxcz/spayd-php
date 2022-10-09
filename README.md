@@ -10,9 +10,9 @@ just for [Packagist package](https://packagist.org/packages/sunfoxcz/spayd-php) 
 ## Example
 
 ```php
-use Shoptet\Spayd\Spayd;
-use Shoptet\Spayd\Model\CzechAccount;
-use Shoptet\Spayd\Utilities\IbanUtilities;
+use Sunfox\Spayd\Spayd;
+use Sunfox\Spayd\Model\CzechAccount;
+use Sunfox\Spayd\Utilities\IbanUtilities;
 
 $spayd = new Spayd;
 $spayd->add('AM', $actuarial->price);

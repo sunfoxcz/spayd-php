@@ -1,8 +1,8 @@
 <?php
 
-namespace Shoptet\Spayd;
+namespace Sunfox\Spayd;
 
-use Shoptet\Spayd\Exceptions;
+use Sunfox\Spayd\Exceptions;
 
 class Spayd
 {

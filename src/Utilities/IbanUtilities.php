@@ -1,16 +1,16 @@
 <?php
 
-namespace Shoptet\Spayd\Utilities;
+namespace Sunfox\Spayd\Utilities;
 
-use Shoptet\Spayd\Exceptions;
+use Sunfox\Spayd\Model\DefaultAccount;
 
 class IbanUtilities {
 	
 	/**
-	 * @param \Shoptet\Spayd\Model\DefaultAccount $account
+	 * @param DefaultAccount $account
 	 * @return FALSE|string
 	 */
-	public static function computeIbanFromBankAccount(\Shoptet\Spayd\Model\DefaultAccount $account) {
+	public static function computeIbanFromBankAccount(DefaultAccount $account) {
 		if ($account->isValid()) {
 			$prefix = str_pad($account->getPrefix(), 6, '0', STR_PAD_LEFT);
 			$accountNumber = str_pad($account->getAccountNumber(), 10, '0', STR_PAD_LEFT);

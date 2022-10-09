@@ -1,7 +1,6 @@
 <?php
 
-namespace Shoptet\Spayd\Model;
-use Shoptet\Spayd\Model;
+namespace Sunfox\Spayd\Model;
 
 abstract class DefaultAccount implements Account {
 	
