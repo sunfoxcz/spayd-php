@@ -2,7 +2,7 @@
 
 namespace Sunfox\Spayd\Model;
 
-final class SlovakiaAccount extends DefaultAccount
+final class SlovakAccount extends DefaultAccount
 {
 	protected string $accountPattern = '~^
 		(?:
