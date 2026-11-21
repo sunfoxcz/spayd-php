@@ -16,8 +16,8 @@
 		"ext-bcmath": "*"
 	},
 	"require-dev": {
-		"nette/tester": "^2.4",
-		"phpstan/phpstan": "^1.8"
+		"nette/tester": "~2.4.3 || ^2.6.2",
+		"phpstan/phpstan": "^2.3.6"
 	},
 	"autoload": {
 		"psr-4": {
